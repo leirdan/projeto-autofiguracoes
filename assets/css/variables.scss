@@ -1,0 +1,63 @@
+$primary-blue-dark: #113272;
+$primary-blue: #164194;
+$primary-cyan: #0095db;
+$primary-light-blue: #79cbf2;
+$primary-lighter-blue: #b4cbe0;
+$primary-lightest-blue: #dae6f2;
+
+$neutral-dark: #353436;
+$neutral-medium-dark: #4e4e4e;
+$neutral-medium: #777777;
+$neutral-light: #cccccc;
+$neutral-lighter: #dddddd;
+$neutral-lightest: #ffffff;
+
+$dialog-red-dark: #a94442;
+$dialog-red: #f58784;
+$dialog-red-light: #ffc3c2;
+$dialog-green-dark: #6b915c;
+$dialog-green: #8ecc51;
+$dialog-green-light: #ccedab;
+$dialog-yellow-dark: #a88721;
+$dialog-yellow: #a88721;
+$dialog-yellow-light: #f3e3b4;
+
+$primary-color: $primary-blue;
+$secondary-color: $primary-cyan;
+$accent-color: $primary-blue-dark;
+$background-color: $neutral-lightest;
+$text-color: $neutral-dark;
+$text-light: #666666;
+
+$characters-color: $primary-cyan;
+$morphology-color: #9b59b6;
+$physiology-color: #e74c3c;
+$productions-color: #f39c12;
+
+$font-family: "Liberation", Arial, sans-serif;
+$font-size-small: 14px;
+$font-size-p: 16px;
+$font-size-h5: 18px;
+$font-size-h4: 24px;
+$font-size-h3: 28px;
+$font-size-h2: 34px;
+$font-size-h1: 40px;
+
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 3rem;
+
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+
+$shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+$shadow-heavy: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+$border-radius: 8px;
+$border-radius-small: 4px;
+$border-radius-large: 12px;
