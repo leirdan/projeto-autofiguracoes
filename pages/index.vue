@@ -1,28 +1,22 @@
 <template lang="pug">
 section.page
-  // Barra superior com logo
   header.header
     //- img.logo(src="/logo-ufrn.png" alt="Logo UFRN")
 
-  // Títulos centrais
-  main.main-content
-    h1.title-outlined
-      .primary Autofigurações
-    h1.title-filled Autofigurações
-    h1.title-outlined
-      .secondary Autofigurações
+  main
+    .main-title
+      h1.filled Autofigurações
 
-  // Texto sobre o projeto
-  section.project-info
-    h2 Sobre o projeto
-    p.
-      It is a long established fact that a reader will be distracted by the readable content 
-      of a page when looking at its layout. The point of using Lorem Ipsum is that it has 
-      a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', 
-      making it look like readable English. Many desktop publishing packages and web page 
-      editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' 
-      will uncover many web sites still in their infancy. Various versions have evolved over 
-      the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+    section.project-info
+      h2 Sobre o projeto
+      p.
+        It is a long established fact that a reader will be distracted by the readable content 
+        of a page when looking at its layout. The point of using Lorem Ipsum is that it has 
+        a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', 
+        making it look like readable English. Many desktop publishing packages and web page 
+        editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' 
+        will uncover many web sites still in their infancy. Various versions have evolved over 
+        the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 
   section.explore
     h3 Explore
@@ -45,10 +39,7 @@ section.page
 
 </template>
 
-<script setup>
-// Usando Iconify
-// import { Icon } from "@iconify/vue";
-</script>
+<script setup></script>
 
 <style scoped lang="scss">
 @use "~/assets/css/variables" as *;
@@ -70,39 +61,39 @@ section.page
     }
   }
 
-  .main-content {
-    text-align: center;
-    margin-top: 2rem;
+  main {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    .main-title {
+      text-align: center;
+      margin-top: 2rem;
 
-    h1 {
-      font-style: italic;
-      font-size: 3.6rem;
+      h1 {
+        font-style: italic;
+        font-size: 3.6rem;
 
-      &.title-outlined {
-        color: transparent;
-        .primary {
-          -webkit-text-stroke: 1px $primary-light-blue;
+        &.filled {
+          font-weight: bold;
+          color: $primary-blue;
         }
-        .secondary {
-          -webkit-text-stroke: 1px $neutral-lighter;
-        }
-      }
-
-      &.title-filled {
-        font-weight: bold;
-        color: #0047b3;
       }
     }
-  }
 
-  .project-info {
-    max-width: 700px;
-    margin-top: 2rem;
+    .project-info {
+      max-width: 700px;
+      margin-top: 2rem;
 
-    h2 {
-      font-weight: bold;
-      font-size: $font-size-h5;
-      margin-bottom: $spacing-sm;
+      h2 {
+        font-weight: bold;
+        font-size: $font-size-h4;
+        margin-bottom: $spacing-sm;
+      }
+      p {
+        text-align: justify;
+        line-height: 20px;
+      }
     }
   }
 
@@ -111,7 +102,7 @@ section.page
     margin-top: 3rem;
 
     h3 {
-      font-size: $font-size-h5;
+      font-size: $font-size-h4;
       font-weight: bolder;
     }
 

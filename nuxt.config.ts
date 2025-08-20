@@ -2,20 +2,17 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
     strict: true,
-    typeCheck: false
+    typeCheck: false,
   },
-  modules: [
-    '@pinia/nuxt'
-  ],
-  css: ['~/assets/css/main.scss'],
+  modules: ["@pinia/nuxt"],
+  css: ["~/assets/css/main.scss"],
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "~/assets/css/variables" as *;'
-        }
-      }
-    }
-  }
-})
-
+          additionalData: '@use "~/assets/css/variables" as *;',
+        },
+      },
+    },
+  },
+});

@@ -4,26 +4,30 @@ NuxtLayout
     header.header
       nav.nav
         .nav-brand
-          NuxtLink(to="/") Autofigurações
+          NuxtLink(to="/") 
+            img(src="/assets/images/LogoUFRN.png")
         .nav-links
-          NuxtLink(to="/quem-somos") Quem somos
-          NuxtLink(to="/caracteres") Caracteres
-          NuxtLink(to="/morfologia") Morfologia
-          NuxtLink(to="/fisiologia") Fisiologia
-          NuxtLink(to="/producoes") Produções próprias
+         NuxtLink(
+          v-for="(item, index) in navbarItems"
+          :key="index"
+          :to="item.path"
+          ) {{ item.name }}
   
     main.main
       NuxtPage(:key="$route.fullPath") 
   
     footer.footer
       .footer-content
+        img(src="/assets/images/LogoUFRNFooter.png")
         .footer-info
-          p © Autofigurações, {{year}} | #[span Todos os direitos reservados]
-          .footer-contact
-            span contato@autofigurações.com
+          p © Autofigurações, {{year}} 
+          p contato@autofigurações.com
+          p Universidade Federal do Rio Grande do Norte
 </template>
 
 <script setup lang="ts">
+import type { NavbarItem } from "./types";
+
 useHead({
   title: "Autofigurações",
   meta: [
@@ -35,6 +39,11 @@ useHead({
 });
 
 const year = new Date().getFullYear();
+
+const navbarItems = ref<NavbarItem[]>([
+  { name: "Caracteres", path: "caracteres" },
+  { name: "Morfologia", path: "morfologia" },
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -92,7 +101,6 @@ const year = new Date().getFullYear();
           background-color: $primary-lightest-blue;
         }
 
-        // Cores específicas por seção
         &[href="/caracteres"] {
           &:hover,
           &.router-link-active {
@@ -135,7 +143,7 @@ const year = new Date().getFullYear();
 }
 
 .footer {
-  background-color: $secondary-color;
+  background-color: $primary-color;
   color: $neutral-lightest;
   padding: $spacing-xl 0;
   margin-top: auto;
@@ -144,27 +152,14 @@ const year = new Date().getFullYear();
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 $spacing-lg;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
 
     .footer-info {
-      margin-bottom: $spacing-md;
-
-      p {
-        margin-bottom: $spacing-sm;
-        font-size: $font-size-p;
-      }
-
-      span {
-        font-style: italic;
-      }
-    }
-
-    .footer-contact {
-      span {
-        font-style: normal;
-        font-weight: bold;
-        font-size: $font-size-p;
-      }
+      font-style: normal;
+      font-weight: bold;
+      font-size: $font-size-p;
+      align-self: center;
     }
   }
 }

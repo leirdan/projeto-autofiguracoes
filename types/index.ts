@@ -9,6 +9,11 @@ export interface LoadingState {
   error: string | null;
 }
 
+export interface NavbarItem {
+  name: string;
+  path: string;
+}
+
 interface Identifiable {
   id: number;
 }

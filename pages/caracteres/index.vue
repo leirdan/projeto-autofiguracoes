@@ -1,139 +1,153 @@
 <template lang="pug">
 div
-  PageHeader(
-    title="Caracteres"
-  )
+  .page-header
 
   .container
     .filters
       .search
-        input(placeholder="ex. Walter Salles")
+        input(placeholder="ex: Walter Salles" v-model="searchQuery")
       .categories
-        select
-          option(selected, value="Val")
+        select(v-model="selectedCategory")
+          option(v-for="cat in categories" :key="cat" :value="cat") {{ cat }}
       .roles
-        select(label="saldasl")
-          option(selected, value="Val")
+        select(v-model="selectedRole")
+          option(v-for="role in roles" :key="role" :value="role") {{ role }}
 
   section.content-grid
     .container
-      .interviews-section
-        h2.section-title Diretores
+      .interviews-section(
+        v-for="(interviews, role) in groupedByRole"
+        :key="role"
+      )
+        h2.section-title {{ roleLabels[role] || role }}
         .interviews-grid
-          InterviewCard(
-            title="Entrevista: Hirokazu Koreeda"
-            subtitle="Diretor de \"Monster\""
-            date="Março 25, 2025"
+          NuxtLink(
+            v-for="(interview, index) in interviews"
+            :key="index"
+            :to="`/caracteres/${interview.slug}`"
           )
-          InterviewCard(
-            title="Entrevista: Nelson Pereira dos Santos"
-            subtitle="Diretor de \"Vidas Secas\""
-            date="Junho 25, 2010"
-          )
-          InterviewCard(
-            title="Entrevista: Kleber Mendonça Filho"
-            subtitle="Diretor de \"Bacurau\""
-            date="Dezembro 25, 2025"
-          )
-
-        h2.section-title Roteiristas
-        .interviews-grid
-          NuxtLink(to="/caracteres/celine-song")
             InterviewCard(
-              title="Entrevista: Celine Song"
-              subtitle="Roteirista de \"Vidas Passadas\""
-              date="Fevereiro 12, 2023"
+              :title="interview.title"
+              :subtitle="interview.subtitle"
+              :date="interview.date"
+              :image="interview.image"
             )
-          InterviewCard(
-            title="Entrevista: Guilhermo del Toro"
-            subtitle="Roteirista de \"Pinóquio\""
-            date="Fevereiro 15, 2025"
-          )
-          InterviewCard(
-            title="Entrevista: Alfonso Cuarón"
-            subtitle="Roteirista de \"Roma\""
-            date="Dezembro 24, 2024"
-          )
-
-      .content-types
-        h2.section-title Tipos de Conteúdo
-        .content-grid
-          .content-section
-            h3 Vídeos
-            .video-grid
-              .video-card
-                h5 Entrevista: Hirokazu Koreeda
-                p.subtitle Diretor de "Monster"
-                p.date Março 25, 2025
-
-              .video-card
-                h5 Entrevista: Nelson Pereira dos Santos
-                p.subtitle Diretor de "Vidas Secas"
-                p.date Junho 25, 2010
-
-              .video-card
-                h5 Entrevista: Kleber Mendonça Filho
-                p.subtitle Diretor de "Bacurau"
-                p.date Dezembro 25, 2025
-
-          .content-section
-            h3 Artigos
-            .article-grid
-              .article-card
-                h5 Silva, A.; Oliveira, B.
-                p.title A Linguagem Cinematográfica e a Construção de Sentidos
-                p.description Análise da narrativa fílmica e elementos técnicos (enquadramento, montagem).
-
-              .article-card
-                h5 Johnson, C.; Lee, D.
-                p.title Cinema e Representação Social: Gênero e Raça
-                p.description Crítica à falta de diversidade em blockbusters.
-
-              .article-card
-                h5 Müller, E.; Santos, F.
-                p.title O Impacto do Streaming na Indústria Cinematográfica
-                p.description Mudanças nos hábitos de consumo pós-Netflix.
 </template>
 
 <script setup lang="ts">
-import { useCategoriesStore } from "~/store/categories";
-import { useCharactersStore } from "~/store/characters";
-import { useRolesStore } from "~/store/roles";
+import { ref, computed } from "vue";
 
 useHead({
   title: "Autofigurações - Caracteres",
 });
 
-const rolesStore = useRolesStore();
-const categoriesStore = useCategoriesStore();
-const charactersStore = useCharactersStore();
+const searchQuery = ref("");
+const selectedCategory = ref("Categorias");
+const selectedRole = ref("Tipos");
 
-await charactersStore.fetchCharacters();
-// const characters = charactersStore.get;
+const categories = ref(["Categorias", "Cinema Brasileiro", "Cinema Asiático"]);
+const roles = ref(["Tipos", "Diretor", "Roteirista", "Ator", "Artista Visual"]);
 
-// Separar caracteres por categorias.
+const roleLabels: Record<string, string> = {
+  director: "Diretores",
+  writer: "Roteiristas",
+  actor: "Atores",
+  "visual-artist": "Artistas Visuais",
+};
 
-const data = ref({});
+const persons = ref([
+  {
+    title: "Entrevista: Hirokazu Koreeda",
+    subtitle: 'Diretor de "Monster"',
+    date: "Março 25, 2025",
+    image: "/assets/images/koreeda.jpg",
+    roles: ["director", "writer"],
+    slug: "koreeda",
+  },
+  {
+    title: "Entrevista: Nelson Pereira dos Santos",
+    subtitle: 'Diretor de "Vidas Secas"',
+    date: "Junho 25, 2010",
+    image: "/assets/images/nelson.jpg",
+    roles: ["director", "actor"],
+    slug: "nelson-pereira",
+  },
+  {
+    title: "Entrevista: Kleber Mendonça Filho",
+    subtitle: 'Diretor de "Bacurau"',
+    date: "Dezembro 25, 2025",
+    image: "/assets/images/kleber.jpg",
+    roles: ["director", "writer", "visual-artist"],
+    slug: "kleber",
+  },
+  {
+    title: "Entrevista: Celine Song",
+    subtitle: 'Roteirista de "Vidas Passadas"',
+    date: "Dezembro 24, 2024",
+    image: "/assets/images/celine.jpg",
+    roles: ["writer", "actor"],
+    slug: "celine-song",
+  },
+  {
+    title: "Entrevista: Guilhermo del Toro",
+    subtitle: 'Roteirista de "Pinóquio"',
+    date: "Fevereiro 12, 2023",
+    image: "/assets/images/deltoro.jpg",
+    roles: ["writer"],
+    slug: "guilhermo-del-toro",
+  },
+  {
+    title: "Entrevista: Alfonso Cuarón",
+    subtitle: 'Roteirista de "Roma"',
+    date: "Fevereiro 15, 2025",
+    image: "/assets/images/cuaron.jpg",
+    roles: ["writer", "actor"],
+    slug: "alfonso-cuaron",
+  },
+]);
+
+const groupedByRole = computed(() => {
+  const groups: Record<string, typeof persons.value> = {};
+  for (const person of persons.value) {
+    for (const role of person.roles) {
+      if (!groups[role]) groups[role] = [];
+      groups[role].push(person);
+    }
+  }
+  return groups;
+});
 </script>
 
 <style lang="scss" scoped>
 @use "~/assets/css/variables" as *;
 
+.page-header {
+  height: 300px;
+  background: #ccc;
+  margin-bottom: $spacing-lg;
+}
+
 .filters {
   display: flex;
   flex-direction: row;
-  margin-top: $spacing-lg;
+  margin: $spacing-lg 0;
+  gap: $spacing-md;
 
   .search {
-    width: 60%;
+    flex: 1;
   }
 
-  .categories {
-    width: 20%;
+  input {
+    width: 100%;
+    padding: $spacing-sm;
+    border: 1px solid $neutral-lighter;
+    border-radius: 4px;
   }
 
-  .roles {
-    width: 20%;
+  select {
+    padding: $spacing-sm;
+    border: 1px solid $neutral-lighter;
+    border-radius: 4px;
   }
 }
 
@@ -148,89 +162,22 @@ const data = ref({});
     padding-bottom: $spacing-sm;
   }
 
-  .interviews-section {
-    margin-bottom: $spacing-xl;
-  }
-
   .interviews-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: $spacing-lg;
     margin-bottom: $spacing-xl;
 
     a {
       text-decoration: none;
       color: inherit;
-    }
-  }
-
-  .content-types {
-    .content-section {
-      margin-bottom: $spacing-xl;
-
-      h3 {
-        font-size: 1.5rem;
-        margin-bottom: $spacing-lg;
-        color: $primary-color;
-      }
+      display: flex;
     }
 
-    .video-grid,
-    .article-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: $spacing-md;
+    :deep(.interview-card) {
+      flex: 1;
+      min-height: 320px;
     }
-
-    .video-card,
-    .article-card {
-      background: #f9f9f9;
-      padding: $spacing-md;
-      border-radius: 6px;
-      border-left: 4px solid $primary-color;
-
-      h5 {
-        margin-bottom: $spacing-xs;
-        color: $primary-color;
-      }
-
-      .title {
-        font-weight: bold;
-        margin-bottom: $spacing-xs;
-        color: $text-color;
-      }
-
-      .subtitle {
-        color: $accent-color;
-        margin-bottom: $spacing-xs;
-      }
-
-      .description {
-        font-size: 0.9rem;
-        color: $text-color;
-        line-height: 1.5;
-      }
-
-      .date {
-        font-size: 0.8rem;
-        color: #999;
-      }
-    }
-  }
-}
-
-@media (max-width: $mobile) {
-  .category-tabs {
-    flex-direction: column;
-  }
-
-  .interviews-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .video-grid,
-  .article-grid {
-    grid-template-columns: 1fr;
   }
 }
 </style>
