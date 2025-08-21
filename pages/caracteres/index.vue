@@ -56,11 +56,11 @@ const roleLabels: Record<string, string> = {
 };
 
 const persons = ref([
-  /*  {
+  {
     title: "Entrevista: Hirokazu Koreeda",
     subtitle: 'Diretor de "Monster"',
     date: "Março 25, 2025",
-    image: "/assets/images/koreeda.jpg",
+    image: "/images/koreeda.png",
     roles: ["director", "writer"],
     slug: "koreeda",
   },
@@ -68,7 +68,7 @@ const persons = ref([
     title: "Entrevista: Nelson Pereira dos Santos",
     subtitle: 'Diretor de "Vidas Secas"',
     date: "Junho 25, 2010",
-    image: "/assets/images/nelson.jpg",
+    image: "/images/nelson.png",
     roles: ["director", "actor"],
     slug: "nelson-pereira",
   },
@@ -76,23 +76,23 @@ const persons = ref([
     title: "Entrevista: Kleber Mendonça Filho",
     subtitle: 'Diretor de "Bacurau"',
     date: "Dezembro 25, 2025",
-    image: "/assets/images/kleber.jpg",
+    image: "/images/kleber.png",
     roles: ["director", "writer", "visual-artist"],
     slug: "kleber",
-  },*/
+  },
   {
     title: "Entrevista: Celine Song",
     subtitle: 'Roteirista de "Vidas Passadas"',
     date: "Dezembro 24, 2024",
-    image: "/images/celine-song.jpg",
+    image: "/images/celine-song.png",
     roles: ["writer", "actor"],
     slug: "celine-song",
   },
-  /*{
+  {
     title: "Entrevista: Guilhermo del Toro",
     subtitle: 'Roteirista de "Pinóquio"',
     date: "Fevereiro 12, 2023",
-    image: "/assets/images/deltoro.jpg",
+    image: "/images/deltoro.png",
     roles: ["writer"],
     slug: "guilhermo-del-toro",
   },
@@ -100,10 +100,10 @@ const persons = ref([
     title: "Entrevista: Alfonso Cuarón",
     subtitle: 'Roteirista de "Roma"',
     date: "Fevereiro 15, 2025",
-    image: "/assets/images/cuaron.jpg",
+    image: "/images/cuaron.png",
     roles: ["writer", "actor"],
     slug: "alfonso-cuaron",
-  },*/
+  },
 ]);
 
 const groupedByRole = computed(() => {
@@ -126,8 +126,9 @@ const groupedByRole = computed(() => {
 @use "~/assets/css/variables" as *;
 
 .page-header {
-  height: 300px;
-  background: #ccc;
+  height: 30rem;
+  background: url("/public/images/Banner.png") no-repeat center center;
+  background-size: cover;
   margin-bottom: $spacing-lg;
 }
 
@@ -161,7 +162,6 @@ const groupedByRole = computed(() => {
   .section-title {
     font-size: 1.8rem;
     margin-bottom: $spacing-lg;
-    color: $primary-color;
     border-bottom: 2px solid #eee;
     padding-bottom: $spacing-sm;
   }

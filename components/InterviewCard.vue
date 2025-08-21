@@ -34,7 +34,6 @@ defineProps({
 
 .interview-card {
   background: white;
-  padding: $spacing-lg;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -55,11 +54,12 @@ defineProps({
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover; // preenche o container sem deformar
+      object-fit: cover;
       display: block;
     }
   }
   .card-info {
+    padding: $spacing-lg;
     h4 {
       font-size: 1.2rem;
       margin-bottom: $spacing-sm;

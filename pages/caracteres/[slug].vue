@@ -56,6 +56,7 @@
             :title="interview.title"
             :subtitle="interview.subtitle"
             :date="interview.date"
+            :image="interview.image"
           )
 
   div(v-else)
@@ -104,7 +105,7 @@ if (slug === "celine-song") {
     description: 'Roteirista de "Vidas Passadas"',
     fullDescription:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-    image: "/images/celine-song.jpg",
+    image: "/images/celine-song.png",
     roles: ["writer", "actor"],
     slug: "celine-song",
     pdfAvailable: true,
@@ -120,7 +121,7 @@ const recommendedInterviews = ref<Interview[]>([
     subtitle: 'Diretor de "Monster"',
     date: "Março 25, 2025",
     category: "director",
-    url: "",
+    image: "/images/koreeda.png",
   },
   {
     id: "2",
@@ -128,7 +129,7 @@ const recommendedInterviews = ref<Interview[]>([
     subtitle: 'Diretor de "Vidas Secas"',
     date: "Junho 25, 2010",
     category: "director",
-    url: "",
+    image: "/images/nelson.png",
   },
   {
     id: "3",
@@ -136,7 +137,7 @@ const recommendedInterviews = ref<Interview[]>([
     subtitle: 'Diretor de "Bacurau"',
     date: "Dezembro 25, 2025",
     category: "director",
-    url: "",
+    image: "/images/kleber.png",
   },
 ]);
 
