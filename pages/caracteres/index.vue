@@ -45,7 +45,7 @@ const searchQuery = ref("");
 const selectedCategory = ref("Categorias");
 const selectedRole = ref("Tipos");
 
-const categories = ref(["Categorias", "Cinema Brasileiro", "Cinema Asiático"]);
+const categories = ref(["Categorias"]);
 const roles = ref(["Tipos", "Diretor", "Roteirista", "Ator", "Artista Visual"]);
 
 const roleLabels: Record<string, string> = {
@@ -56,7 +56,7 @@ const roleLabels: Record<string, string> = {
 };
 
 const persons = ref([
-  {
+  /*  {
     title: "Entrevista: Hirokazu Koreeda",
     subtitle: 'Diretor de "Monster"',
     date: "Março 25, 2025",
@@ -79,16 +79,16 @@ const persons = ref([
     image: "/assets/images/kleber.jpg",
     roles: ["director", "writer", "visual-artist"],
     slug: "kleber",
-  },
+  },*/
   {
     title: "Entrevista: Celine Song",
     subtitle: 'Roteirista de "Vidas Passadas"',
     date: "Dezembro 24, 2024",
-    image: "/assets/images/celine.jpg",
+    image: "/images/celine-song.jpg",
     roles: ["writer", "actor"],
     slug: "celine-song",
   },
-  {
+  /*{
     title: "Entrevista: Guilhermo del Toro",
     subtitle: 'Roteirista de "Pinóquio"',
     date: "Fevereiro 12, 2023",
@@ -103,14 +103,18 @@ const persons = ref([
     image: "/assets/images/cuaron.jpg",
     roles: ["writer", "actor"],
     slug: "alfonso-cuaron",
-  },
+  },*/
 ]);
 
 const groupedByRole = computed(() => {
   const groups: Record<string, typeof persons.value> = {};
+
   for (const person of persons.value) {
     for (const role of person.roles) {
-      if (!groups[role]) groups[role] = [];
+      if (!groups[role]) {
+        groups[role] = [];
+      }
+
       groups[role].push(person);
     }
   }

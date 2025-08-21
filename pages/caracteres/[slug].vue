@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.container
   div(v-if="charactersStore.isLoading")
     .loading-container
       p Carregando...
@@ -9,44 +9,54 @@ div
       p Erro: {{ charactersStore.error }}
 
   div(v-else-if="character")
-    PageHeader(
-      :title="character.name"
-      :description-text="character.description"
-    )
-      .categories
-        h3 Categorias
-        .category-tabs
-          span.tab.active Tipos
+    section.character-header
+      .character-photo
+        img(:src="character.image")
+      .character-name
+        h1 {{character.name}}
+        p {{character.description}}
+        // Adicionar categorias/tipos
+
 
     section.character-details
-      .container
-        .character-info
-          h2.section-title Entrevista: {{ character.name }}, {{ character.role }}
+      .character-info
+        .info
+          h2.section-title Entrevista:  
           p.character-description {{ character.fullDescription }}
           .download-section(v-if="character.pdfAvailable")
             button.download-btn Baixar PDF
-
-        .works-section(v-if="character.works && character.works.length > 0")
-          h3.works-title Obras
-          .works-grid
-            WorkCard(
-              v-for="work in character.works"
-              :key="work.id"
-              :title="work.title"
-              :details="work.details"
-              :description="work.description"
+        .video 
+          iframe(
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/5nKgGNhRtcI?si=048l9sko0FYRNNM7"
+            title="Entrevista"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
             )
 
-        .recommended-interviews
-          h3.interviews-title Entrevistas recomendadas
-          .interviews-grid
-            InterviewCard(
-              v-for="interview in recommendedInterviews"
-              :key="interview.id"
-              :title="interview.title"
-              :subtitle="interview.subtitle"
-              :date="interview.date"
-            )
+      .works-section(v-if="character.works && character.works.length > 0")
+        h3.works-title Obras
+        .works-grid
+          WorkCard(
+            v-for="work in character.works"
+            :key="work.id"
+            :title="work.title"
+            :image="work.image"
+            :date="work.date"
+            :description="work.description"
+          )
+      .recommended-interviews
+        h3.interviews-title Entrevistas recomendadas
+        .interviews-grid
+          InterviewCard(
+            v-for="interview in recommendedInterviews"
+            :key="interview.id"
+            :title="interview.title"
+            :subtitle="interview.subtitle"
+            :date="interview.date"
+          )
 
   div(v-else)
     .not-found-container
@@ -54,8 +64,9 @@ div
 </template>
 
 <script setup lang="ts">
+import Divider from "~/components/Divider.vue";
 import { useCharactersStore } from "~/store/characters";
-import type { Character, Interview } from "~/types";
+import type { Character, Interview, Work } from "~/types";
 
 const route = useRoute();
 const charactersStore = useCharactersStore();
@@ -63,11 +74,43 @@ const charactersStore = useCharactersStore();
 const slug = route.params.slug as string;
 
 console.log(slug);
-await charactersStore.fetchCharacterBySlug(slug);
 
-const character = computed(
-  (): Character | null => charactersStore.currentCharacter
-);
+const character = ref<Character | null>(null);
+
+if (slug === "celine-song") {
+  const works: Work[] = [
+    {
+      id: 1,
+      title: "Vidas Passadas",
+      date: new Date(),
+      image: "/images/past-lifes.png",
+    },
+    {
+      id: 2,
+      title: "Amores Materialistas",
+      date: new Date(),
+      image: "/images/materialists.png",
+    },
+    {
+      id: 3,
+      title: "Roda do Tempo",
+      date: new Date(),
+      image: "/images/wheel-of-time.png",
+    },
+  ];
+
+  character.value = {
+    name: "Celine Song",
+    description: 'Roteirista de "Vidas Passadas"',
+    fullDescription:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+    image: "/images/celine-song.jpg",
+    roles: ["writer", "actor"],
+    slug: "celine-song",
+    pdfAvailable: true,
+    works,
+  };
+}
 
 // Mock data para entrevistas recomendadas - em produção viria da store
 const recommendedInterviews = ref<Interview[]>([
@@ -164,13 +207,43 @@ onUnmounted(() => {
   }
 }
 
+.character-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .character-photo {
+    flex: 1;
+    margin-right: 2rem;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+  }
+
+  .character-name {
+    flex: 1;
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: $font-size-h2;
+    }
+    p {
+      margin: 0;
+      line-height: 1.5;
+      color: $text-color;
+    }
+  }
+}
+
 .character-details {
   padding: $spacing-xl 0;
 
   .section-title {
     font-size: 1.8rem;
     margin-bottom: $spacing-lg;
-    color: $primary-color;
   }
 
   .character-description {
@@ -179,20 +252,33 @@ onUnmounted(() => {
     color: $text-color;
   }
 
-  .download-section {
-    margin-bottom: $spacing-xl;
+  .character-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    .info {
+      text-align: justify;
+    }
+    .video {
+    }
 
-    .download-btn {
-      background-color: $primary-color;
-      color: white;
-      padding: $spacing-sm $spacing-lg;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    .download-section {
+      margin-bottom: $spacing-xl;
 
-      &:hover {
-        background-color: darken($primary-color, 10%);
+      .download-btn {
+        background-color: $primary-color;
+        color: white;
+        padding: $spacing-sm $spacing-lg;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
       }
     }
   }
@@ -203,7 +289,6 @@ onUnmounted(() => {
     .works-title {
       font-size: 1.5rem;
       margin-bottom: $spacing-lg;
-      color: $primary-color;
     }
 
     .works-grid {
@@ -217,7 +302,6 @@ onUnmounted(() => {
     .interviews-title {
       font-size: 1.5rem;
       margin-bottom: $spacing-lg;
-      color: $primary-color;
     }
 
     .interviews-grid {
@@ -229,7 +313,8 @@ onUnmounted(() => {
 }
 
 @media (max-width: $mobile) {
-  .category-tabs {
+  .category-tabs,
+  .character-info {
     flex-direction: column;
   }
 

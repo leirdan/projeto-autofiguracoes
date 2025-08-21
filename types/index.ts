@@ -23,7 +23,7 @@ export interface Interview extends Identifiable {
   subtitle: string;
   date: string;
   slug?: string;
-  category: "director" | "screenwriter";
+  category: string;
   url: string;
 }
 
@@ -43,15 +43,17 @@ export interface Character extends Identifiable {
   fullDescription: string;
   pdfAvailable: boolean;
   profile: Blob;
+  image: string; // Temporário por agora
   slug: string;
-  roles: Role[];
+  roles: string[]; // Role[];
   works: Work[];
   categories: Category[];
 }
 
 export interface Work extends Identifiable {
   title: string;
-  details: string;
+  date: Date | string;
+  image: string;
   description?: string;
 }
 
