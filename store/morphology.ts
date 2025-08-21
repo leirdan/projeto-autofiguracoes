@@ -1,9 +1,18 @@
 import { defineStore } from 'pinia'
 import type { Morphology, MorphologyExample, LoadingState } from '~/types'
 
+interface CustomMorphologyExample extends MorphologyExample {
+  image?: string
+}
+
+interface CustomMorphology extends Morphology {
+  mainImage?: string
+  examples: CustomMorphologyExample[]
+}
+
 interface MorphologyState extends LoadingState {
-  morphologies: Morphology[]
-  currentMorphology: Morphology | null
+  morphologies: CustomMorphology[]
+  currentMorphology: CustomMorphology | null
 }
 
 export const useMorphologyStore = defineStore('morphology', {
@@ -16,12 +25,12 @@ export const useMorphologyStore = defineStore('morphology', {
 
   getters: {
     getMorphologyBySlug: (state) => {
-      return (slug: string): Morphology | undefined => {
+      return (slug: string): CustomMorphology | undefined => {
         return state.morphologies.find(morphology => morphology.slug === slug)
       }
     },
 
-    getAllMorphologies: (state): Morphology[] => {
+    getAllMorphologies: (state): CustomMorphology[] => {
       return state.morphologies
     }
   },
@@ -32,75 +41,68 @@ export const useMorphologyStore = defineStore('morphology', {
       this.error = null
 
       try {
-        // Simulando chamada de API
         await new Promise(resolve => setTimeout(resolve, 400))
         
         this.morphologies = [
           {
             id: '1',
-            title: 'Morfologia da MONTAGEM',
+            title: 'Morfologia da Montagem',
             subtitle: 'Técnicas de montagem cinematográfica',
             description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             influence: 'Sergei Eisenstein',
             influenceDescription: 'Pioneiro da teoria da montagem cinematográfica, Eisenstein desenvolveu conceitos fundamentais sobre como a justaposição de imagens cria significado.',
+            mainImage: '/images/sergeieisenstein.jpg',
             examples: [
               {
                 id: '1',
                 title: 'Montagem de Conflito',
                 description: 'Técnica que cria tensão através do contraste entre planos.',
-                details: 'Exemplo: "O Encouraçado Potemkin" (1925)'
+                details: 'Exemplo: "O Encouraçado Potemkin" (1925 )',
+                image: '/images/oencouracadopotemkin.jpg'
               },
-              {
-                id: '2',
-                title: 'Montagem Métrica',
-                description: 'Baseada na duração absoluta dos planos.',
-                details: 'Ritmo criado pela duração dos cortes'
-              },
-              {
-                id: '3',
-                title: 'Montagem Rítmica',
-                description: 'Considera o movimento dentro do quadro.',
-                details: 'Movimento como elemento de continuidade'
-              }
             ],
             slug: 'montagem'
           },
           {
             id: '2',
-            title: 'Morfologia do PLANO-SEQUÊNCIA',
+            title: 'Morfologia do Plano-Sequência',
             subtitle: 'Continuidade temporal e espacial',
             description: 'Análise da continuidade temporal e espacial no cinema realista.',
             influence: 'André Bazin / Realismo',
             influenceDescription: 'Teórico do realismo cinematográfico que defendia a preservação da unidade espaço-temporal.',
+            mainImage: '/images/andre-bazin.jpg',
             examples: [
               {
                 id: '1',
                 title: 'Plano-Sequência Clássico',
                 description: 'Técnica que mantém a continuidade espacial e temporal.',
-                details: 'Exemplo: "Cidadão Kane" (1941)'
-              }
+                details: 'Exemplo: "Cidadão Kane" (1941 )',
+                image: '/images/cidadaokane.jpeg'
+              },
             ],
             slug: 'plano-sequencia'
           },
           {
             id: '3',
-            title: 'Morfologia do CINEMA DE ATRAÇÕES',
+            title: 'Morfologia do Cinema de Atrações',
             subtitle: 'Espetáculo e impacto sensorial',
             description: 'Estudo das primeiras formas cinematográficas e seu impacto sensorial.',
             influence: 'Tom Gunning / Cinema primitivo',
             influenceDescription: 'Teórico que conceituou o cinema de atrações como forma primitiva de espetáculo.',
+            mainImage: '/images/tomgunning.jpg',
             examples: [
               {
                 id: '1',
                 title: 'Atração Visual',
                 description: 'Foco no impacto visual direto sobre o espectador.',
-                details: 'Primeiros filmes dos irmãos Lumière'
-              }
+                details: 'Primeiros filmes dos irmãos Lumière',
+                image: '/images/irmaoslumiere.jpg'
+              },
             ],
             slug: 'cinema-atracoes'
           }
         ]
-      } catch (error) {
+      } catch (error ) {
         this.error = error instanceof Error ? error.message : 'Erro ao carregar morfologias'
       } finally {
         this.isLoading = false
@@ -112,7 +114,6 @@ export const useMorphologyStore = defineStore('morphology', {
       this.error = null
 
       try {
-        // Se já temos as morfologias carregadas, buscar localmente
         if (this.morphologies.length === 0) {
           await this.fetchMorphologies()
         }
@@ -130,7 +131,7 @@ export const useMorphologyStore = defineStore('morphology', {
       }
     },
 
-    setCurrentMorphology(morphology: Morphology | null): void {
+    setCurrentMorphology(morphology: CustomMorphology | null): void {
       this.currentMorphology = morphology
     },
 
@@ -139,4 +140,3 @@ export const useMorphologyStore = defineStore('morphology', {
     }
   }
 })
-

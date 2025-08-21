@@ -59,12 +59,13 @@ export interface Work extends Identifiable {
 
 export interface Morphology extends Identifiable {
   title: string;
-  subtitle: string;
-  description: string;
+  subtitle?: string;
+  description?: string;
   influence: string;
-  influenceDescription: string;
-  examples: MorphologyExample[];
+  influenceDescription?: string;
+  examples?: MorphologyExample[];
   slug: string;
+  image: string;
 }
 
 export type MorphologyExample = Pick<

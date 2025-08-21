@@ -33,7 +33,8 @@ defineProps({
 
 .page-header {
   padding: $spacing-xl 0;
-  background: linear-gradient(135deg, #f9f9f9 0%, #e9e9e9 100%);
+  // background: linear-gradient(135deg, #f9f9f9 0%, #e9e9e9 100%);
+  background: transparent;
 
   &.hero {
     text-align: center;

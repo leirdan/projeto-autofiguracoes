@@ -1,11 +1,13 @@
 <template lang="pug">
 .morphology-card
-  .influence {{ influence }}
-  h3.morphology-title {{ title }}
-  .description {{ description }}
+  img.card-image(v-if="image" :src="image" :alt="title")
+  .card-content
+    p.influence {{ influence }}
+    h3.morphology-title {{ title }}
 </template>
 
 <script setup>
+
 defineProps({
   influence: {
     type: String,
@@ -15,9 +17,14 @@ defineProps({
     type: String,
     required: true
   },
+  image: {
+    type: String,
+    required: false
+  },
+
   description: {
     type: String,
-    required: true
+    required: false
   }
 })
 </script>
@@ -27,37 +34,44 @@ defineProps({
 
 .morphology-card {
   background: white;
-  padding: $spacing-lg;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border-radius: 0; 
+  box-shadow: none;
   transition: all 0.3s ease;
-  border-left: 5px solid $primary-color;
+  border: none; 
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   &:hover {
+
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  }
+
+  .card-image {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+  }
+
+  .card-content {
+    padding: $spacing-md $spacing-xs;
   }
 
   .influence {
     font-size: 0.9rem;
-    color: $accent-color;
-    margin-bottom: $spacing-sm;
-    font-style: italic;
+    color: $neutral-dark; 
+    margin-bottom: $spacing-xs;
+    font-style: normal;
   }
 
   .morphology-title {
-    font-size: 1.3rem;
-    margin-bottom: $spacing-md;
-    color: $primary-color;
+    font-size: 1.25rem;
+    color: #113272; 
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: normal; 
+    line-height: 1.3;
   }
 
-  .description {
-    line-height: 1.6;
-    color: $text-color;
-  }
 }
 </style>
-

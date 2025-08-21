@@ -5,7 +5,7 @@ NuxtLayout
       nav.nav
         .nav-brand
           NuxtLink(to="/") 
-            img(src="/assets/images/LogoUFRN.png")
+            img(src="/images/LogoUFRN.png")
         .nav-links
          NuxtLink(
           v-for="(item, index) in navbarItems"
@@ -18,7 +18,7 @@ NuxtLayout
   
     footer.footer
       .footer-content
-        img(src="/assets/images/LogoUFRNFooter.png")
+        img(src="/images/LogoUFRNFooter.png")
         .footer-info
           p © Autofigurações, {{year}} 
           p contato@autofigurações.com
