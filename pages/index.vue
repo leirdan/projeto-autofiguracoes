@@ -1,8 +1,5 @@
 <template lang="pug">
 section.page
-  header.header
-    //- img.logo(src="/logo-ufrn.png" alt="Logo UFRN")
-
   main
     .main-title
       h1.filled Autofigurações
@@ -22,20 +19,17 @@ section.page
     h3 Explore
     .icon-grid
       .icon-item
-        //- Icon(name="mdi:home" size="48")
-        span Quem Somos
+        Icon(name="home", label="Quem Somos")
       .icon-item
-        //- Icon(name="mdi:account" size="48")
-        span Caracteres
+        NuxtLink(to="/caracteres")
+          Icon(name="user", label="Caracteres")
       .icon-item
-        //- Icon(name="mdi:puzzle" size="48")
-        span Morfologia
+        NuxtLink(to="/morfologia")
+          Icon(name="extension", label="Morfologia")
       .icon-item
-        //- Icon(name="mdi:brain" size="48")
-        span Fisiologia
+        Icon(name="brain", label="Fisiologia")
       .icon-item
-        //- Icon(name="mdi:file-document" size="48")
-        span Produções Próprias
+        Icon(name="video-camera", label="Produções Próprias")
 
 </template>
 
@@ -50,17 +44,6 @@ section.page
   align-items: center;
   font-family: Arial, sans-serif;
 
-  .header {
-    width: 100%;
-    padding: 1rem;
-    display: flex;
-    justify-content: flex-start;
-
-    .logo {
-      height: 40px;
-    }
-  }
-
   main {
     margin-top: 5rem;
     display: flex;
@@ -72,7 +55,8 @@ section.page
 
       h1 {
         font-style: italic;
-        font-size: 3.6rem;
+        font-size: 4.4rem;
+        font-weight: 900;
 
         &.filled {
           font-weight: bold;
@@ -100,6 +84,7 @@ section.page
   .explore {
     width: 700px;
     margin-top: 3rem;
+    margin-bottom: 5rem;
 
     h3 {
       font-size: $font-size-h4;
@@ -109,20 +94,23 @@ section.page
     .icon-grid {
       display: flex;
       gap: 2rem;
+      margin-top: 1rem;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-around;
     }
 
     .icon-item {
       display: flex;
       flex-direction: column;
       align-items: center;
+      a {
+        color: $text-color;
+        text-decoration: none;
+      }
     }
   }
 }
 
 @media (max-width: $mobile) {
-  .explore {
-  }
 }
 </style>
