@@ -41,8 +41,8 @@ useHead({
 const year = new Date().getFullYear();
 
 const navbarItems = ref<NavbarItem[]>([
-  { name: "Caracteres", path: "caracteres" },
-  { name: "Morfologia", path: "morfologia" },
+  { name: "Caracteres", path: "/caracteres" },
+  { name: "Morfologia", path: "/morfologia" },
 ]);
 </script>
 
@@ -100,45 +100,13 @@ const navbarItems = ref<NavbarItem[]>([
           color: $primary-color;
           background-color: $primary-lightest-blue;
         }
-
-        &[href="/caracteres"] {
-          &:hover,
-          &.router-link-active {
-            background-color: rgba($characters-color, 0.1);
-            color: $characters-color;
-          }
-        }
-
-        &[href="/morfologia"] {
-          &:hover,
-          &.router-link-active {
-            background-color: rgba($morphology-color, 0.1);
-            color: $morphology-color;
-          }
-        }
-
-        &[href="/fisiologia"] {
-          &:hover,
-          &.router-link-active {
-            background-color: rgba($physiology-color, 0.1);
-            color: $physiology-color;
-          }
-        }
-
-        &[href="/producoes"] {
-          &:hover,
-          &.router-link-active {
-            background-color: rgba($productions-color, 0.1);
-            color: $productions-color;
-          }
-        }
       }
     }
   }
 }
 
 .main {
-  min-height: calc(100vh - 120px);
+  min-height: 70vh;
   background-color: $background-color;
 }
 
@@ -146,7 +114,6 @@ const navbarItems = ref<NavbarItem[]>([
   background-color: $primary-color;
   color: $neutral-lightest;
   padding: $spacing-xl 0;
-  margin-top: auto;
 
   .footer-content {
     max-width: 1200px;
