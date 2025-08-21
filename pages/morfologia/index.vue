@@ -1,6 +1,5 @@
 <template lang="pug">
 div
-  // Seção do cabeçalho customizada com imagem e texto
   section.custom-header
     .container.header-grid
       .header-image
@@ -9,7 +8,6 @@ div
         h1.header-title O que é Morfologia no cinema?
         p.header-description {{ morphologyDescription }}
 
-  // Seção de Categorias
   section.categories-section
     .container
       h2.section-title Categorias
@@ -39,21 +37,21 @@ const morphologyDescription = ref('It is a long established fact that a reader w
 const morphologyItems = ref<Morphology[]>([
   {
     id: 1,
-    title: "Morfologia da MONTAGEM",
+    title: "Morfologia da Montagem",
     influence: "Influência: Sergei Eisenstein",
     slug: "montagem",
     image: "/images/morfologia_montagem.jpg"
   },
   {
     id: 2,
-    title: "Morfologia do PLANO-SEQUÊNCIA",
+    title: "Morfologia do Plano-Sequência",
     influence: "Influência: André Bazin / Realismo",
     slug: "plano-sequencia",
     image: "/images/morfologia_planosequencia.jpg"
   },
   {
     id: 3,
-    title: "Morfologia do CINEMA DE ATRAÇÕES",
+    title: "Morfologia do Cinema de Atrações",
     influence: "Influência: Tom Gunning / Cinema primitivo",
     slug: "cinema-de-atracoes",
     image: "/images/morfologia_cinemaatracoes.jpg"
